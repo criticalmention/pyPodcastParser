@@ -143,8 +143,11 @@ class Item(object):
         self.categories = []
         temp_categories = self.soup.findAll('category')
         for category in temp_categories:
-            category_text = category.string.strip()
-            self.categories.append(category_text)
+            try:
+                category_text = category.string.strip()
+                self.categories.append(category_text)
+            except AttributeError:
+                pass
 
     def set_comments(self):
         """Parses comments and set value."""
