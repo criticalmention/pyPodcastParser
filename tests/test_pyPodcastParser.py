@@ -102,6 +102,9 @@ class Test_Basic_Feed_Items(unittest.TestCase):
         self.assertFalse("x" in self.podcast.items[0].categories)
         self.assertFalse("x" in self.podcast.items[1].categories)
 
+    def test_item_empty_category_ignored(self):
+        self.assertFalse(None in self.podcast.items[3].categories)
+        self.assertFalse("" in self.podcast.items[3].categories)
 
     def test_item_description(self):
         self.assertEqual(self.podcast.items[0].description, "basic item description")
