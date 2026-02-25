@@ -78,7 +78,7 @@ class Test_Basic_Feed_Items(unittest.TestCase):
 
     def test_item_count(self):
         number_of_items = len(self.podcast.items)
-        self.assertEqual(number_of_items, 4)
+        self.assertEqual(number_of_items, 5)
 
     def test_item_comments(self):
         self.assertEqual(self.podcast.items[0].comments, "http://comments.com/entry/0")
@@ -105,6 +105,13 @@ class Test_Basic_Feed_Items(unittest.TestCase):
     def test_item_empty_category_ignored(self):
         self.assertFalse(None in self.podcast.items[3].categories)
         self.assertFalse("" in self.podcast.items[3].categories)
+
+    def test_item_itunes_category_no_string_ignored(self):
+        # itunes:category tags have no string content (only a text attribute),
+        # e.g. <itunes:category text="Arts"/>. Reproduces the real-world crash
+        # seen on "The Scarlet Letter" feed where category.string returns None.
+        self.assertFalse(None in self.podcast.items[4].categories)
+        self.assertFalse("" in self.podcast.items[4].categories)
 
     def test_item_description(self):
         self.assertEqual(self.podcast.items[0].description, "basic item description")
@@ -632,7 +639,8 @@ class Test_Basic_Feed_Items_Generator(unittest.TestCase):
           "http://comments.com/entry/0",
           "http://comments.com/entry/1",
           "http://comments.com/entry/2",
-          "http://comments.com/entry/3"
+          "http://comments.com/entry/3",
+          "http://comments.com/entry/4"
         ]
         for index, item in enumerate(self.podcast.get_items(), start=0):
             self.assertEqual(item.comments, comments[index])

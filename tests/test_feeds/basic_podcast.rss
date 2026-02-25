@@ -176,5 +176,11 @@
             <itunes:title><![CDATA[<h1>A title with html</h1>]]></itunes:title>
             <title><![CDATA[<h1>A title with html</h1>]]></title>
         </item>
+        <item>
+            <title>itunes category only item</title>
+            <itunes:category text="Arts"/>
+            <enclosure length="123456" url="https://github.com/jrigden/pyPodcastParser.mp3" type="audio/mpeg"/>
+            <comments>http://comments.com/entry/4</comments>
+        </item>
      </channel>
 </rss>
